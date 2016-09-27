@@ -38,8 +38,10 @@ class ArticlesController extends Controller
         return redirect('articles');
     }
 
-    public function edit()
+    public function edit($id)
     {
+        $article = Article::findOrFail($id);
 
+        return view('articles.edit', compact('article'));
     }
 }
