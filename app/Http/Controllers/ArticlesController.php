@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Requests\ArticleRequest;
+use Auth;
 
 class ArticlesController extends Controller
 {
@@ -33,7 +34,9 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        Article::create($request->all());
+        $article = new Article($request->all());
+
+        Auth::user()->articles()->save($article);
 
         return redirect('articles');
     }
