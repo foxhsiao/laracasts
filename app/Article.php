@@ -11,6 +11,7 @@ class Article extends Model
         'title',
         'body',
         'published_at',
+        'user_id'
     ];
 
     protected $dates = [
@@ -30,5 +31,14 @@ class Article extends Model
     public function setPublishedc($date)
     {
         $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $date);
+    }
+
+    /**
+     * An article is owned by a user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }
