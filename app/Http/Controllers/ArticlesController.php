@@ -8,9 +8,14 @@ use Auth;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $articles = Article::latest('published_at')->published()->get();
+        $articles = \Auth::user()->articles()->latest()->published()->get();
 
         return view('articles.index', compact('articles'));
     }
