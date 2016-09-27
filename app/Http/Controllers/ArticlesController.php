@@ -31,10 +31,7 @@ class ArticlesController extends Controller
 
     public function store()
     {
-        $article = request()->all();
-        $article['published_at'] = Carbon::now();
-
-        Article::create($article);
+        Article::create(request()->all());
 
         return redirect('articles');
     }
