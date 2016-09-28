@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Article;
+use Illuminate\Routing\ter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -19,13 +21,13 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @return void
+     * @internal param Router
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::model('article', Article::class);
     }
 
     /**
