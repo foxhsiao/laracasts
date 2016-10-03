@@ -39,7 +39,7 @@ class ArticlesController extends Controller
     {
         Auth::user()->articles()->create($request->all());
 
-        \Session::flash('flash_message', 'Your article has ben created');
+        flash()->success('Your article has ben created');
 
         return redirect('articles');
     }
