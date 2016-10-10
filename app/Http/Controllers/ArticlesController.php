@@ -42,7 +42,7 @@ class ArticlesController extends Controller
     {
         $article = Auth::user()->articles()->create($request->all());
 
-        $article->tags()->attach($request->input('tag_list'));
+        $this->syncTags($article, $request->input('tag_list'));
 
         flash()->success('Your article has ben created');
 
@@ -60,6 +60,19 @@ class ArticlesController extends Controller
     {
         $article->update($request->all());
 
+        $this->syncTags($article, $request->input('tag_list'));
+
         return redirect('articles');
+    }
+
+    /**
+     * @param Article $article
+     * @param array   $tags
+     *
+     * @internal param ArticleRequest $request
+     */
+    public function syncTags(Article $article, array $tags):void
+    {
+        $article->tags()->sync($tags);
     }
 }
