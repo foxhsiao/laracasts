@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Requests\ArticleRequest;
+use App\Tag;
 use Auth;
 
 class ArticlesController extends Controller
@@ -27,7 +28,9 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        return view('articles.create');
+        $tags = Tag::pluck('name', 'id');
+
+        return view('articles.create', compact('tags'));
     }
 
     /**
@@ -37,7 +40,9 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        Auth::user()->articles()->create($request->all());
+        $article = Auth::user()->articles()->create($request->all());
+
+        $article->tags()->attach($request->input('tags'));
 
         flash()->success('Your article has ben created');
 
