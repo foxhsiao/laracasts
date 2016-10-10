@@ -42,7 +42,7 @@ class ArticlesController extends Controller
     {
         $article = Auth::user()->articles()->create($request->all());
 
-        $article->tags()->attach($request->input('tags'));
+        $article->tags()->attach($request->input('tag_list'));
 
         flash()->success('Your article has ben created');
 
@@ -51,7 +51,9 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
-        return view('articles.edit', compact('article'));
+        $tags = Tag::pluck('name', 'id');
+
+        return view('articles.edit', compact('article', 'tags'));
     }
 
     public function update(Article $article, ArticleRequest $request)
