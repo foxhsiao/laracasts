@@ -28,7 +28,7 @@ class Article extends Model
         $query->where('published_at', '>=' , Carbon::now());
     }
 
-    public function setPublishedc($date)
+    public function setPublished($date)
     {
         $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $date);
     }
@@ -40,5 +40,10 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag')->withTimestamps();
     }
 }
